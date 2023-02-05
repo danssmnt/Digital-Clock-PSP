@@ -7,4 +7,4 @@ It may take a while to start the clock, that's because of all numbers' textures 
 
 Have fun!
 
-![nice](https://user-images.githubusercontent.com/88230635/216838515-6300afe6-f490-490a-8df6-e846ae80efb8.jpg)
+![Pic1](https://user-images.githubusercontent.com/88230635/216838515-6300afe6-f490-490a-8df6-e846ae80efb8.jpg)
