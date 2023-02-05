@@ -2,7 +2,7 @@
 
 Have you ever thought of a PSP like a digital clock? Well, I sure have! So here it is, a digital clock for your **PSP**!
 
-To install it, simply grab the ``Digital Clock`` folder paste it on ``ms0:/PSP/GAME``!
+To install it, simply grab the ``Digital Clock`` folder and paste it on ``ms0:/PSP/GAME``!
 It may take a while to start the clock, that's because of all numbers' textures that are being loaded, just **wait** patiently.
 
 Have fun!
