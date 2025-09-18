@@ -8,14 +8,18 @@
 #include <Other/callbacks.h>
 #include <Libs/glib2d/glib2d.h>
 #include <pspgu.h>
-#include <time.h>
-#include <stdio.h>
+#include <psprtc.h>
+
 
 PSP_MODULE_INFO("Digital Clock", PSP_MODULE_USER, 1, 0);
 
 PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU);
 
 bool ClockRunnning = true;
+
+// CHANGED pspTime to ScePspDateTime becouse of https://github.com/pspdev/pspsdk/commit/76e6ce2e46fc90b3cf48e730327f1be3b81eb8b9
+
+ScePspDateTime timeT;
 
 // Concatenate integers, join them
 unsigned int concatenate_int(unsigned int num1, unsigned int num2) {
@@ -71,10 +75,10 @@ int value_first; int value_second;
 int value_third; int value_fourth;
 
 // Transform time numbers to images
-void TransformTimeToClock(struct tm* timeinfo)
+void TransformTimeToClock(ScePspDateTime *time)
 {
-	int hour = timeinfo->tm_hour;
-	int min = timeinfo->tm_min;
+	int hour = time->hour;
+	int min = time->minute;
 
 	int hour_together;
 	int value = 0;
@@ -121,9 +125,6 @@ int main()
 	SceInt64 cur_micros = 0;
 	bool showing_colon = true;
 
-	time_t rawtime;
-    struct tm * timeinfo;
-
 	// Set up callbacks
     SetupCallbacks();
 	LoadImages();
@@ -131,9 +132,8 @@ int main()
 	// While Program Running
     while(ClockRunnning) {
 		// Count time
-		time(&rawtime);
-    	timeinfo = localtime(&rawtime);
-		TransformTimeToClock(timeinfo);
+		sceRtcGetCurrentClockLocalTime(&timeT);
+		TransformTimeToClock(&timeT);
 
 		g2dClear(BackgroundGameColor); // Background
 
