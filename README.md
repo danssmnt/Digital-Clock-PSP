@@ -30,7 +30,7 @@ Download the latest release from [releases](https://github.com/danssmnt/Digital-
 ---
 
 ## Error diagnosing
-> !NOTE
+> [!NOTE]
 > If you follow all the installation instructions correctly (which are very few), no errors should popup on the app.
 
 |Error|Code|Description|More info.|
