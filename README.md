@@ -67,6 +67,7 @@ Keep in mind you should preserve the original aspect ratios of them (``1:2`` for
 
 ## To Do
  - [ ] Organize the code better
+ - [ ] Don't draw first 0 when time is < 10h (eg.: 09:00 -> 9:00)
  - [ ] Make a single texture for all sprites
  - [ ] Save clock settings
  - [ ] XMB icon animation (``ICON1.PMF``)
