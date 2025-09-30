@@ -18,6 +18,8 @@
  */
 
 #include <pspkernel.h>
+
+#include "utils.h"
 #include "main.h"
 
 // Will execute when user tries to exit app
@@ -51,7 +53,7 @@ static int callback_thread(SceSize args, void *argp)
     return -1;
   }
 
-  (void)sceKernelSleepThreadCB();
+  sceKernelSleepThreadCB();
   return 0;
 }
 

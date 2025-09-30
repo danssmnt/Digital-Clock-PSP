@@ -80,8 +80,8 @@ extern "C" {
  * PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU) to avoid crashes.
  */
 #define USE_PNG
-#define USE_JPEG
-//#define USE_VFPU
+// #define USE_JPEG
+// #define USE_VFPU
 
 /**
  * \def G2D_SCR_W
@@ -170,7 +170,7 @@ enum g2dColors
     LITEGRAY        = 0xFFBFBFBF,
     GRAY            = 0xFF7F7F7F,
     DARKGRAY        = 0xFF3F3F3F,
-    BLACK           = 0xFF000000
+    BLACK           = 0xFF000000,
 };
 
 /**

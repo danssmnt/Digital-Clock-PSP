@@ -17,9 +17,22 @@
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __CALLBACKS_H__
-#define __CALLBACKS_H__
+#include <pspiofilemgr.h>
+#include <pspkernel.h>
 
-int setup_callbacks(void);
+#include "utils.h"
 
-#endif // __CALLBACKS_H__
+/* Check if file exists by checking attributes
+ * Better than opening and closing it
+ */
+cbool file_exists(const char* file_path)
+{
+  SceIoStat stat = {0};
+  
+  if ( sceIoGetstat(file_path, &stat) < 0 )
+  {
+    return FALSE;
+  }
+
+  return FIO_SO_ISREG(stat.st_attr);
+}

@@ -25,6 +25,7 @@
 #include <vram.h>
 #include <malloc.h>
 #include <math.h>
+#include <string.h>
 
 #ifdef USE_PNG
 #include <png.h>
@@ -35,6 +36,10 @@
 #endif
 
 /* Defines */
+
+/* PSPSDK doesn't see math.h? */
+extern void sincosf(float, float *, float *);
+
 
 #define DLIST_SIZE              (524288)
 #define LINE_SIZE               (512)

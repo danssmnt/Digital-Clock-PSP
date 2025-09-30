@@ -17,20 +17,10 @@
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __MAIN_H__
-#define __MAIN_H__
+#ifndef ERROR_H_
+#define ERROR_H_
 
-typedef unsigned int uint;
-typedef unsigned char uchar;
-typedef uchar ubool;
-
-enum
-{
-  FALSE,
-  TRUE
-};
-
-extern ubool app_running;
+#include "utils.h"
 
 typedef enum
 {
@@ -39,7 +29,7 @@ typedef enum
   ERROR_ALLOCATING_TEXTURES,
   ERROR_GETTING_TIME_RTC,
   ERROR_UNKNOWN
-} error_type;
+} app_error_type;
 
 typedef struct
 {
@@ -48,8 +38,6 @@ typedef struct
   char* msg;
 } app_error;
 
-int tex_free(void);
+extern int app_error_display(app_error_type err);
 
-#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
-
-#endif // __MAIN_H__
+#endif /* ERROR_H_ */

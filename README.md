@@ -47,7 +47,7 @@ Download the latest release from [releases](https://github.com/danssmnt/Digital-
 
 ### Dependencies
 
-You'll need PSPSDK to compile this homebrew. I used this [version](https://darksectordds.github.io/html/MinimalistPSPSDK/index.html).
+You'll need PSPSDK to compile this homebrew. Just use the latest, it'll work.
 
 ### Compiling
 
@@ -61,24 +61,25 @@ You'll need PSPSDK to compile this homebrew. I used this [version](https://darks
 
 If you want / need, you can replace all textures inside ``assets/textures`` for your own ones.
 
-Keep in mind you should preserve the original aspect ratios of them (``1:2`` for ``0.png -> 9.png`` and ``9:80`` for ``colon.png``), otherwise they'll look stretched (unless you modify the code too). Also, textures can't have more than 512 of width or height, because of PSP hardware limitations.
+Keep in mind:
+
+ - Textures must preserve the original aspect ratios: ``1:2`` for ``0.png -> 9.png`` and ``9:80`` for ``colon.png`` (unless you also modify the code)
+ - Textures must be PNGs (``USE_JPEG`` is disabled in glib2d for binary size reduction)
+ - Textures must have a max. width / height of 512 (because of PSP hardware limitations).
+
 
 ---
 
-## To Do
- - [ ] Organize the code better
- - [ ] Don't draw first 0 when time is < 10h (eg.: 09:00 -> 9:00)
- - [ ] Make a single texture for all sprites
- - [ ] Save clock settings
- - [ ] XMB icon animation (``ICON1.PMF``)
- - [ ] More Colors
+## Future Checklist
+
  - [ ] Battery indicator
- - [ ] Make a minimal fork of glib2d
  - [ ] Show date
+ - [ ] XMB icon animation (``ICON1.PMF``)
+ - [ ] Play music
  - [ ] Timer and chronometer
  - [ ] Alarm
- - [ ] Play music / sounds?
- ...
+ - [ ] Save clock settings
+ - [ ] Make a minimal fork of glib2d
 
 ---
 
