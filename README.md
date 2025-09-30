@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>Digital Clock PSP v2.0</h1>
+    <h1>Digital Clock PSP</h1>
 </div>
 
 <div align="center">
@@ -84,6 +84,14 @@ Keep in mind:
 ---
 
 ## Changelog
+
+### v2.0.1
+ - Switched to newest PSPSDK (pspTime -> ScePspDateTime)
+ - Improved binary size by cutting JPEG support.
+ - Organized the code better
+ - Fixed drawing the first 0 when not needed
+ - Added more colors
+ - File exists func improved
 
 ### v2.0
  - Remade the whole app from scratch.
