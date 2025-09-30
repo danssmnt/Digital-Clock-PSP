@@ -3,9 +3,9 @@
 </div>
 
 <div align="center">
-    <img src="./pictures/DigitalClockRed.webp" alt="Red Digital Clock" style="height: 90px;"/>
-    <img src="./pictures/DigitalClockGreen.webp" alt="Green Digital ClockP" style="height: 90px;"/>
-    <img src="./pictures/DigitalClockBlue.webp" alt="Blue Digital Clock" style="height: 90px;"/>
+    <img src="./pictures/DigitalClockRed.webp" alt="Red Digital Clock" style="height: 150px;"/>
+    <img src="./pictures/DigitalClockGreen.webp" alt="Green Digital ClockP" style="height: 150px;"/>
+    <img src="./pictures/DigitalClockBlue.webp" alt="Blue Digital Clock" style="height: 150px;"/>
 </div>
 
 ---
