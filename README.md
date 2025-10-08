@@ -10,7 +10,7 @@
 
 ---
 
-A simple digital clock for your **PlayStation Portable**.
+A digital clock for your **PlayStation Portable**.
 Made with [gLib2D by Geecko](https://github.com/libcg/gLib2D/).
 
 ---
@@ -23,7 +23,7 @@ Download the latest release from [releases](https://github.com/danssmnt/Digital-
 
 ## How to use
 
- - Press <img src="./pictures/ButtonL.webp" alt="L" style="height: 20px;"/> or <img src="./pictures/ButtonR.webp" alt="R" style="height: 20px;"/> to change the clock color.
+ - Press <img src="./pictures/ButtonLeft.webp" alt="Left" style="height: 20px;"/> or <img src="./pictures/ButtonRight.webp" alt="Right" style="height: 20px;"/> to change the clock color.
  - Press <img src="./pictures/ButtonSquare.webp" alt="Square" style="height: 20px;"/> to change between different brightness modes.
  - Press <img src="./pictures/ButtonSelect.webp" alt="Select" style="height: 20px;"/> to exit the app.
 
@@ -117,4 +117,4 @@ Keep in mind:
 ---
 
 ## Acknowledgements
- - [**@mizabmdgg**](https://github.com/mizabmdgg) - Found issue [#1](https://github.com/danssmnt/Digital-Clock-PSP/issues/1) and even made their own [fork](https://github.com/mizabmdgg/Digital-Clock-PSP/tree/main) to solve it.
+ - [**@mizabmdgg**](https://github.com/mizabmdgg) - Found issue [#1](https://github.com/danssmnt/Digital-Clock-PSP/issues/1) and even made their own [fork](https://github.com/mizabmdgg/Digital-Clock-PSP/tree/main) to fix it.
