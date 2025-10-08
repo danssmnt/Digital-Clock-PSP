@@ -1,7 +1,7 @@
 TARGET = DigitalClock
-OBJS = src/utils.o src/error.o src/callbacks.o lib/glib2d/glib2d.o src/tex.o src/main.o
+OBJS = src/utils.o src/error.o src/battery.o src/callbacks.o lib/glib2d/glib2d.o src/tex.o src/main.o
 
-LIBS = -lpng -lz -lpspgu -lm -lpspvram -lpsprtc -lpspctrl
+LIBS = -lpng -lz -lpspgu -lm -lpspvram -lpsprtc -lpspctrl -lpsppower
 
 WARNING_FLAGS = -Werror -Wall -Wextra -Wno-sign-compare
 

@@ -31,6 +31,7 @@
 #include "utils.h"
 #include "error.h"
 #include "tex.h"
+#include "battery.h"
 
 #define APP_NAME    "Digital Clock"
 #define APP_VERSION "v2.0.1"
@@ -56,7 +57,7 @@ int main(int args, char* argv[])
   }
   
   // Neither should allocating mem for textures
-  if ( tex_num_alloc() < 0 )
+  if ( clock_tex_alloc() < 0 )
   {
     app_running = FALSE;
   }
@@ -76,15 +77,24 @@ int main(int args, char* argv[])
   const uchar brightness_modes_size = ARRAY_SIZE(brightness_modes);
   int curr_brightness_index = 0;
   
-  const ScePspFVector2 size_sprites = { 80.0f, 160.0f };
-  ScePspFVector2 pos_sprites = { 60.0f, (float)G2D_SCR_H / 2.0f };
+  const ScePspFVector2 clock_time_size_sprites = { 80.0f, 160.0f };
+  const ScePspFVector2 clock_date_size_sprites = { 20.0f, 40.0f };
   
-  // Centered
-  const ScePspFVector2 colon_pos = { (float)G2D_SCR_W / 2.0f, (float)G2D_SCR_H / 2.0f };
-  const ScePspFVector2 colon_size = { 18.0f, 160.0f };
+  const ScePspFVector2 clock_time_pos_sprites = { 60.0f, 120.0f };
+  ScePspFVector2 clock_date_pos_sprites = { 360.0f, 240.0f };
 
+  const ScePspFVector2 clock_bat_pos_sprite = { 330.0f, 240.0f };
+  
+  ScePspFVector2 curr_pos_time_sprites = clock_time_pos_sprites;
+  ScePspFVector2 curr_pos_date_sprites = clock_date_pos_sprites;
+  ScePspFVector2 curr_pos_bat_sprites  = clock_bat_pos_sprite;
+
+  // Centered
+  const ScePspFVector2 clock_time_pos_colon = { (float)G2D_SCR_W / 2.0f, 120.0f };
+  const ScePspFVector2 clock_date_pos_dot   = { 410.0f, 240.0f };
+  
   ScePspDateTime curr_time = {0};
-  int old_min;
+  int old_min = -1;
 
   SceCtrlLatch latch;
 
@@ -94,10 +104,17 @@ int main(int args, char* argv[])
   {
     // GRAPHICS ///////////////////////////////////////
 
-    pos_sprites.x = 60.0f;
+    curr_pos_time_sprites.x = clock_time_pos_sprites.x;
+    curr_pos_date_sprites.x = clock_date_pos_sprites.x;
+    curr_pos_bat_sprites.x  = clock_bat_pos_sprite.x;
+
     g2dClear(bg_color);
     
-    old_min = curr_time.minute;
+    // Check if curr_time has been initialized
+    if (curr_time.year != 0)
+    {
+      old_min = curr_time.minute;
+    }
 
     // This should never fail, otherwise something is horribly wrong!
     if ( sceRtcGetCurrentClockLocalTime(&curr_time) < 0 )
@@ -109,26 +126,49 @@ int main(int args, char* argv[])
     // For checking if min has changed (instead of building the texture array every cycle)
     if ( old_min != curr_time.minute )
     {
-      build_num_texdraw(&curr_time);
+      clock_build_curr_tex_draw(&curr_time);
+      clock_build_curr_tex_draw(&curr_time);
     }
     
-    // Clock display 4 digits (2 for hour and 2 for min)
+    // Clock display time: 4 digits (2 for hour and 2 for min)
     for ( int tile = 0; tile < 4; tile++ )
     {
       // Draw if it's not NULL (eg.: first tile is 0)
-      if (tile_number_texdraw[tile])
+      if (curr_tex_draw.time[tile])
       {
-        tex_draw(tile_number_texdraw[tile], &pos_sprites, &size_sprites, G2D_MODULATE(clock_colors[curr_clock_color_index], brightness_modes[curr_brightness_index], 255));
+        tex_draw(curr_tex_draw.time[tile], &curr_pos_time_sprites, &clock_time_size_sprites, G2D_MODULATE(clock_colors[curr_clock_color_index], brightness_modes[curr_brightness_index], 255));
       }
       
-      pos_sprites.x += 120.0f;
+      curr_pos_time_sprites.x += 120.0f;
     }
+
+    ScePspDateTime time_cust;
+    sceRtcGetCurrentClockLocalTime(&time_cust);
     
     // Draw colon every even second (for blinking)
-    if ( curr_time.second % 2 == 0 )
+    if ( time_cust.second % 2 == 0 )
     {
-      tex_draw(tex_clock[TEX_SIZE-1], &colon_pos, &colon_size, G2D_MODULATE(clock_colors[curr_clock_color_index], brightness_modes[curr_brightness_index], 255));
+      tex_draw(&main_clock_tex.s.colon, &clock_time_pos_colon, &clock_time_size_sprites, G2D_MODULATE(clock_colors[curr_clock_color_index], brightness_modes[curr_brightness_index], 255));
     }
+
+    for ( int tile = 0; tile < 4; tile++ )
+    {
+      // Draw if it's not NULL (eg.: first tile is 0)
+      if (curr_tex_draw.date[tile])
+      {
+        tex_draw(curr_tex_draw.date[tile], &curr_pos_date_sprites, &clock_date_size_sprites, G2D_MODULATE(clock_colors[curr_clock_color_index], brightness_modes[curr_brightness_index], 255));
+      }
+      
+      curr_pos_date_sprites.x += tile == 1 ? 30.0f : 30.0f;
+    }
+
+    tex_draw(&main_clock_tex.s.dot_bottom, &clock_date_pos_dot, &clock_date_size_sprites, G2D_MODULATE(clock_colors[curr_clock_color_index], brightness_modes[curr_brightness_index], 255));
+    
+    app_tex* bat_tex;
+    get_tex_by_curr_bat_status(&bat_tex);
+
+    tex_draw(bat_tex, &curr_pos_bat_sprites, &clock_date_size_sprites, G2D_MODULATE(clock_colors[curr_clock_color_index], brightness_modes[curr_brightness_index], 255));
+
 
     g2dFlip(G2D_VSYNC);
 
@@ -144,14 +184,14 @@ int main(int args, char* argv[])
       app_running = FALSE;
     }
 
-    // Press L / R to change color
-    if ( latch.uiMake & PSP_CTRL_LTRIGGER )
+    // Press Left / Right to change color
+    if ( latch.uiMake & PSP_CTRL_LEFT )
     {
       curr_clock_color_index = (curr_clock_color_index - 1 + clock_colors_size) % clock_colors_size;
     }
     
-    // Press L / R to change color
-    else if ( latch.uiMake & PSP_CTRL_RTRIGGER )
+    // Press Left / Right to change color
+    else if ( latch.uiMake & PSP_CTRL_RIGHT )
     {
       curr_clock_color_index = (curr_clock_color_index + 1) % clock_colors_size;
     }
@@ -166,7 +206,7 @@ int main(int args, char* argv[])
   }
 
   g2dTerm();
-  tex_free();
+  clock_tex_free();
 
   sceKernelExitGame();
 

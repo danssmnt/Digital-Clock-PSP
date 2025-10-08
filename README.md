@@ -4,7 +4,7 @@
 
 <div align="center">
     <img src="./pictures/DigitalClockRed.webp" alt="Red Digital Clock" style="height: 150px;"/>
-    <img src="./pictures/DigitalClockGreen.webp" alt="Green Digital ClockP" style="height: 150px;"/>
+    <img src="./pictures/DigitalClockGreen.webp" alt="Green Digital Clock" style="height: 150px;"/>
     <img src="./pictures/DigitalClockBlue.webp" alt="Blue Digital Clock" style="height: 150px;"/>
 </div>
 
@@ -59,12 +59,12 @@ You'll need PSPSDK to compile this homebrew. Just use the latest, it'll work.
 
 ### Replacing Textures
 
-If you want / need, you can replace all textures inside ``assets/textures`` for your own ones.
+If you want / need, you can replace all textures inside ``assets/textures/**`` for your own ones.
 
 Keep in mind:
 
- - Textures must preserve the original aspect ratios: ``1:2`` for ``0.png -> 9.png`` and ``9:80`` for ``colon.png`` (unless you also modify the code)
- - Textures must be PNGs (``USE_JPEG`` is disabled in glib2d for binary size reduction)
+ - All textures must preserve the original aspect ratios (``1:2``).
+ - Textures must be PNGs, otherwise they won't be loaded.
  - Textures must have a max. width / height of 512 (because of PSP hardware limitations).
 
 
@@ -72,8 +72,8 @@ Keep in mind:
 
 ## Future Checklist
 
- - [ ] Battery indicator
- - [ ] Show date
+ - [X] Show date
+ - [X] Battery indicator
  - [ ] XMB icon animation (``ICON1.PMF``)
  - [ ] Play music
  - [ ] Timer and chronometer

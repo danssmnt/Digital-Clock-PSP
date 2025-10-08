@@ -29,11 +29,12 @@
 // Errors
 static const app_error app_errors[] = 
 {
-  {0x80000000 | ERROR_SETUP_CALLBACKS,      "ERROR_SETUP_CALLBACKS",      "Something went wrong while configuring the Exit Callback."},
-  {0x80000000 | ERROR_TEXTURES_NOT_FOUND,   "ERROR_TEXTURES_NOT_FOUND",   "Textures are missing from 'assets/textures/'!\n  Make sure all PNGs are in the correct directory."},
-  {0x80000000 | ERROR_ALLOCATING_TEXTURES,  "ERROR_ALLOCATING_TEXTURES",  "Unable to allocate memory for textures."},
-  {0x80000000 | ERROR_GETTING_TIME_RTC,     "ERROR_GETTING_TIME_RTC",     "sceRtcGetCurrentClockLocalTime() failed to provide time."},
-  {0x7FFFFFFF,                              "ERROR_UNKNOWN",              "Something unknown went very wrong."},
+  {},
+  {0x80000000 | -ERROR_SETUP_CALLBACKS,      "ERROR_SETUP_CALLBACKS",      "Something went wrong while configuring the Exit Callback."},
+  {0x80000000 | -ERROR_TEXTURES_NOT_FOUND,   "ERROR_TEXTURES_NOT_FOUND",   "Textures are missing from 'assets/textures/'!\n  Make sure all PNGs are in the correct directory."},
+  {0x80000000 | -ERROR_ALLOCATING_TEXTURES,  "ERROR_ALLOCATING_TEXTURES",  "Unable to allocate memory for textures."},
+  {0x80000000 | -ERROR_GETTING_TIME_RTC,     "ERROR_GETTING_TIME_RTC",     "sceRtcGetCurrentClockLocalTime() failed to provide time."},
+  {0x80000000 | -ERROR_UNKNOWN,              "ERROR_UNKNOWN",              "Something unknown went very wrong."},
 };
 
 // Display error to screen (aborts app...)
@@ -41,11 +42,11 @@ int app_error_display(app_error_type err)
 {
   // Clear stuff
   g2dTerm();
-  tex_free();
+  clock_tex_free();
 
   cbool error_running = TRUE;
 
-  const app_error* error = &app_errors[err];
+  const app_error* error = &app_errors[-err];
 
   pspDebugScreenInit();
 
@@ -54,7 +55,7 @@ int app_error_display(app_error_type err)
   while ( error_running )
   {
     // Print error
-    pspDebugScreenClear();
+    // pspDebugScreenClear();
 
     pspDebugScreenSetXY(2, 2);
     pspDebugScreenSetTextColor(YELLOW);
@@ -85,7 +86,6 @@ int app_error_display(app_error_type err)
     if ( err_latch.uiMake & PSP_CTRL_SELECT )
     {
       error_running = FALSE;
-      continue;
     }
   }
 

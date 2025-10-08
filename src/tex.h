@@ -24,14 +24,66 @@
 
 #include "lib/glib2d/glib2d.h"
 
-#define TEX_SIZE 11
+typedef struct 
+{
+  const char* filename;
+  g2dTexture* tex;
+} app_tex;
 
-extern g2dTexture* tex_clock[TEX_SIZE];
-extern g2dTexture* tile_number_texdraw[4];
+enum 
+{
+  T_ZERO, T_ONE, T_TWO, T_THREE, T_FOUR, 
+  T_FIVE, T_SIX, T_SEVEN, T_EIGHT, T_NINE, 
+  T_COLON, 
+  T_DASH, 
+  T_DOT_BOTTOM, 
+  T_ICON_MUSIC, 
+  T_ALARM_DOT,
+  T_BAT_FULL,
+  T_BAT_3BAR,
+  T_BAT_2BAR,
+  T_BAT_1BAR,
+  T_BAT_EMPTY,
+  
+  T_COUNT
+};
 
-extern int tex_num_alloc(void);
-extern int tex_free(void);
-extern int build_num_texdraw(const ScePspDateTime* time);
-extern int tex_draw(g2dTexture* tex, const ScePspFVector2* pos, const ScePspFVector2* size, g2dColor color);
+struct clock_tex_struct
+{
+  app_tex zero, one, two, three, four, 
+          five, six, seven, eight, nine;
+  app_tex colon;
+  app_tex dash;
+  app_tex dot_bottom;
+  app_tex icon_music;
+  app_tex alarm_dot;
+
+  app_tex bat_full;
+  app_tex bat_3bar;
+  app_tex bat_2bar;
+  app_tex bat_1bar;
+  app_tex bat_empty;
+};
+
+union clock_tex
+{
+  struct clock_tex_struct s;
+  app_tex a[T_COUNT];
+};
+
+struct clock_tex_draw
+{
+  app_tex* time[4];
+  app_tex* date[4];
+};
+
+extern union clock_tex main_clock_tex;
+extern struct clock_tex_draw curr_tex_draw;
+
+int clock_tex_alloc(void);
+int clock_tex_free(void);
+int clock_build_curr_tex_draw(const ScePspDateTime* time);
+int tex_draw(app_tex* tex, const ScePspFVector2* pos, const ScePspFVector2* size, g2dColor color);
+
 
 #endif /* TEX_H_ */
