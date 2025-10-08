@@ -34,7 +34,7 @@
 #include "battery.h"
 
 #define APP_NAME    "Digital Clock"
-#define APP_VERSION "v2.0.1"
+#define APP_VERSION "v2.1"
 
 const char* app_name  = APP_NAME;
 const char* app_ver   = APP_VERSION;

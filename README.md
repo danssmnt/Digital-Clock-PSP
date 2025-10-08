@@ -83,6 +83,16 @@ Keep in mind:
 
 ## Changelog
 
+### v2.1
+ - Add Date
+ - Add Battery Indicator
+ - Added and organized textures
+ - Added battery.c
+ - Fixed Error Screen not showing on PSP
+ - Improved Texture System
+ - Now Left / Right change colors, instead of L / R
+ - Improved code
+
 ### v2.0.1
  - Switched to newest PSPSDK (pspTime -> ScePspDateTime)
  - Improved binary size by cutting JPEG support.
