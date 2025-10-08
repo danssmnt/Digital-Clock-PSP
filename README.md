@@ -72,8 +72,6 @@ Keep in mind:
 
 ## Future Checklist
 
- - [X] Show date
- - [X] Battery indicator
  - [ ] XMB icon animation (``ICON1.PMF``)
  - [ ] Play music
  - [ ] Timer and chronometer
